@@ -1,8 +1,11 @@
 import random
 
+# Tika ielasīts vārda saraksts
+with open('data/words.txt', 'r', encoding='utf-8') as file: 
+    file_content = file.read()
+    words = file_content.split("\n")
+    
 # Spēles pamatfunkcijas 
-
-words = "JAKA" ,"KURMIS", "SNIEGS"
 
 word = random.choice(words)
 word_progress = list(len(word) * "-")
