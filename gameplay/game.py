@@ -7,18 +7,6 @@ class Game:
         self.guessed_letters = set()
         self.missed_letters = set()
         self.missed_words = set()
-
-    # Spēles funkcijas
-
-    def print_status(self):
-        print()
-        print(f"Word: {''.join(self.word_progress)}")
-        print(f"Lives: {self.lives}")
-        print(f"Missed letters: {', '.join(self.missed_letters)}")
-        print(f"Missed words: {', '.join(self.missed_words)}")
-        print()
-
-    # Spēles kods 
     
     def play(self):
         while self.lives > 0 and self.word_is_guessed == False:
@@ -71,11 +59,87 @@ class Game:
                     print("Wrong word") 
                     self.missed_words.add(guess)
                     self.lives -= 1    
+        
+        self.print_game_over_message()
+        
             
+    def print_status(self):
+        print()
+        self.draw_hangman()
+        print(f"Word: {''.join(self.word_progress)}")
+        print(f"Lives: {self.lives}")
+        print(f"Missed letters: {', '.join(self.missed_letters)}")
+        print(f"Missed words: {', '.join(self.missed_words)}")
+        print()
+        
+    def print_game_over_message(self):
         print("\nGame over!")
         if self.word_is_guessed:
-            print("Congrats You WON!")
-            print(f"Word: {self.word}")
+            print(f"Congrats You WON! Word: {self.word}")
         else:
-            print("You Lost!")
-            print(f"Correct word: {self.word}")
+            print(f"You Lost! Correct word: {self.word}")
+            
+    def draw_hangman(self):
+        if self.lives == 6:
+            print(
+                "           \n",
+                "           \n",
+                "           \n",
+                "           \n",
+                "           \n",
+                "___________\n"
+            )
+        elif self.lives == 5:
+            print(
+                "    _      \n",
+                "   |       \n",
+                "   |       \n",
+                "   |       \n",
+                "   |       \n",
+                "___________\n"
+            )
+        elif self.lives == 4:
+            print(
+                "   ______  \n",
+                "   |       \n",
+                "   |       \n",
+                "   |       \n",
+                "   |       \n",
+                "___________\n"
+            )
+        elif self.lives == 3:
+            print(
+                "   ______  \n",
+                "   |    0  \n",
+                "   |       \n",
+                "   |       \n",
+                "   |       \n",
+                "___________\n"
+            )
+        elif self.lives == 2:
+            print(
+                "   ______  \n",
+                "   |    0  \n",
+                "   |    █  \n",
+                "   |    █  \n",
+                "   |       \n",
+                "___________\n"
+            )
+        elif self.lives == 1:
+            print(
+                "   ______  \n",
+                "   |    0  \n",
+                "   |   /█\ \n",
+                "   |    █  \n",
+                "   |       \n",
+                "___________\n"
+            )
+        elif self.lives == 0:
+            print(
+                "   ______  \n",
+                "   |    0  \n",
+                "   |   /█\ \n",
+                "   |    █  \n",
+                "   |   / \ \n",
+                "___________\n"
+            )
