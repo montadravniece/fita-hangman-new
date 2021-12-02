@@ -1,84 +1,81 @@
-import random
+class Game:
+    def __init__(self, word):
+        self.word = word
+        self.word_progress = list(len(word) * "-")
+        self.lives = 6
+        self.word_is_guessed = False
+        self.guessed_letters = set()
+        self.missed_letters = set()
+        self.missed_words = set()
 
-# Tika ielasīts vārda saraksts
-with open('data/words.txt', 'r', encoding='utf-8') as file: 
-    file_content = file.read()
-    words = file_content.split("\n")
+    # Spēles funkcijas
+
+    def print_status(self):
+        print()
+        print(f"Word: {''.join(self.word_progress)}")
+        print(f"Lives: {self.lives}")
+        print(f"Missed letters: {', '.join(self.missed_letters)}")
+        print(f"Missed words: {', '.join(self.missed_words)}")
+        print()
+
+    # Spēles kods 
     
-# Spēles pamatfunkcijas 
-
-word = random.choice(words)
-word_progress = list(len(word) * "-")
-
-lives = 6
-word_is_guessed = False
-guessed_letters = set()
-missed_letters = set()
-missed_words = set()
-
-def print_status():
-    print(f"Word: {''.join(word_progress)}")
-    print(f"Lives: {lives}")
-    print(f"Missed letters: {', '.join(missed_letters)}")
-    print(f"Missed words: {', '.join(missed_words)}")
-
-# Spēles kods 
-
-while lives > 0 and word_is_guessed == False:
-    print_status()
-    
-    guess = input("Please try and guess a letter: ").upper()
-
-    if len(guess) == 0:
-        # Ja nav ievadīts nekas
-        print("Enter at least one letter")
-        continue
-    elif len(guess) == 1:
-        # Ja ievadīts viens simbols
-        if not guess.isalpha():
-            print("Please enter a letter")
-            continue
-        
-        if guess in guessed_letters or guess in missed_letters:
-            print("You already tried this letter")
-            continue
-        
-        if guess in word:
-            print("Correct you guessed a letter")
-            guessed_letters.add(guess)
-            # Atklājam atminētos burtus
-            for index, letter in enumerate(word):
-                if letter in guessed_letters:
-                    word_progress[index] = letter
-            # Pārbaudam vai vārds ir atminēts
-            if word == ''.join(word_progress):
-                word_is_guessed = True
-        else:
-            print("Wrong! Please try guessing another letter")
-            missed_letters.add(guess)   
-            lives -= 1
+    def play(self):
+        while self.lives > 0 and self.word_is_guessed == False:
+            self.print_status()
             
-    else:
-        # Ja ievadīti vairāki simboli
-        if len(guess) != len(word):
-            print("Word lenght in not correct try again")
-            continue
-        
-        if guess in missed_words:
-            print("You already tried this word")
-            continue
+            guess = input("Please try and guess a letter: ").upper()
+
+            if len(guess) == 0:
+                # Ja nav ievadīts nekas
+                print("Enter at least one letter\n")
+                continue
             
-        if word == guess:
-            word_is_guessed = True
+            if len(guess) == 1:
+                # Ja ievadīts viens simbols
+                if not guess.isalpha():
+                    print("Please enter a letter\n")
+                    continue
+                
+                if guess in self.guessed_letters or guess in self.missed_letters:
+                    print("You already tried this letter\n")
+                    continue
+                
+                if guess in self.word:
+                    print("Correct you guessed a letter")
+                    self.guessed_letters.add(guess)
+                    # Atklājam atminētos burtus
+                    for index, letter in enumerate(self.word):
+                        if letter in self.guessed_letters:
+                            self.word_progress[index] = letter
+                    # Pārbaudam vai vārds ir atminēts
+                    if self.word == ''.join(self.word_progress):
+                        self.word_is_guessed = True
+                else:
+                    print("Wrong! Please try guessing another letter")
+                    self.missed_letters.add(guess)   
+                    self.lives -= 1       
+            else:
+                # Ja ievadīti vairāki simboli
+                if len(guess) != len(self.word):
+                    print("Word lenght in not correct try again\n")
+                    continue
+                
+                if guess in self.missed_words:
+                    print("You already tried this word\n")
+                    continue
+                    
+                if self.word == guess:
+                    self.word_is_guessed = True
+                else:
+                    print("Wrong word") 
+                    self.missed_words.add(guess)
+                    self.lives -= 1    
+            
+        print("\nGame over!")
+        if self.word_is_guessed:
+            print("Congrats You WON!")
+            print(f"Word: {self.word}")
         else:
-            print("Wrong word") 
-            missed_words.add(guess)
-            lives -= 1    
-        
-    print()
-    
-if word_is_guessed:
-    print("Congrats You WON! ")
-else:
-    print("You Lost")
-    print(f"Correct word: {word}")
+            print("You Lost!")
+            print(f"Correct word: {self.word}")
