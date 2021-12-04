@@ -7,28 +7,28 @@ class Game:
         self.guessed_letters = set()
         self.missed_letters = set()
         self.missed_words = set()
-    
+
     def play(self):
         while self.lives > 0 and self.word_is_guessed == False:
             self.print_status()
-            
+
             guess = input("Please try and guess a letter: ").upper()
 
             if len(guess) == 0:
                 # Ja nav ievadīts nekas
                 print("Enter at least one letter\n")
                 continue
-            
+
             if len(guess) == 1:
                 # Ja ievadīts viens simbols
                 if not guess.isalpha():
                     print("Please enter a letter\n")
                     continue
-                
+
                 if guess in self.guessed_letters or guess in self.missed_letters:
                     print("You already tried this letter\n")
                     continue
-                
+
                 if guess in self.word:
                     print("Correct you guessed a letter")
                     self.guessed_letters.add(guess)
@@ -41,29 +41,28 @@ class Game:
                         self.word_is_guessed = True
                 else:
                     print("Wrong! Please try guessing another letter")
-                    self.missed_letters.add(guess)   
-                    self.lives -= 1       
+                    self.missed_letters.add(guess)
+                    self.lives -= 1
             else:
                 # Ja ievadīti vairāki simboli
                 if len(guess) != len(self.word):
                     print("Word lenght in not correct try again\n")
                     continue
-                
+
                 if guess in self.missed_words:
                     print("You already tried this word\n")
                     continue
-                    
+
                 if self.word == guess:
                     self.word_is_guessed = True
                 else:
-                    print("Wrong word") 
+                    print("Wrong word")
                     self.missed_words.add(guess)
-                    self.lives -= 1    
-        
+                    self.lives -= 1
+
         self.print_status()
         self.print_game_over_message()
-        
-            
+
     def print_status(self):
         print()
         self.draw_hangman()
@@ -72,14 +71,14 @@ class Game:
         print(f"Missed letters: {', '.join(self.missed_letters)}")
         print(f"Missed words: {', '.join(self.missed_words)}")
         print()
-        
+
     def print_game_over_message(self):
         print("\nGame over!")
         if self.word_is_guessed:
             print(f"Congrats You WON! Word: {self.word}")
         else:
             print(f"You Lost! Correct word: {self.word}")
-            
+
     def draw_hangman(self):
         if self.lives == 6:
             print(
@@ -130,7 +129,7 @@ class Game:
             print(
                 "   ______  \n",
                 "   |    0  \n",
-                "   |   /█\ \n",
+                "   |   /█\\ \n",
                 "   |    █  \n",
                 "   |       \n",
                 "___________\n"
@@ -139,8 +138,8 @@ class Game:
             print(
                 "   ______  \n",
                 "   |    0  \n",
-                "   |   /█\ \n",
+                "   |   /█\\ \n",
                 "   |    █  \n",
-                "   |   / \ \n",
+                "   |   / \\ \n",
                 "___________\n"
             )
