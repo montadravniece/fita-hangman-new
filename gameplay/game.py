@@ -60,6 +60,7 @@ class Game:
                     self.missed_words.add(guess)
                     self.lives -= 1    
         
+        self.print_status()
         self.print_game_over_message()
         
             
