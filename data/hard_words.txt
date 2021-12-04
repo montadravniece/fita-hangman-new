@@ -1,0 +1,1 @@
+{'FĒCES', 'EOLĪTI', 'KĻOŠS', 'JŪTŪBE', 'MĒĢENE', 'ČIUĻI', 'BLEĶIS', 'DORĀDA', 'ROĶELE', 'ĀBECE', 'BLUĶIS', 'ŠĒRA', 'ODZIŅA', 'BANĀNS', 'NĀSS', 'TVĪTS', 'SŪDS', 'AMĪŠI', 'AĢENTS', 'BOHĒMA', 'ĀDERE', 'BRĪDIS', 'ALIŅŠ', 'PĀRIS', 'ŠITAKE', 'BARĪTS', 'BĀRIJS', 'ĒRCĪTE', 'RAFIŅŠ', 'IKRĪTA', 'SĀGA', 'OLNĪCA', 'KUMĪNS', 'AŽŪRS', 'JŪTŪBS'}
